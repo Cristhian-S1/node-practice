@@ -1,0 +1,5 @@
+### Check the server is running
+GET http://localhost:3000/test
+
+### 1. Get all stadiums
+GET http://localhost:3000/api/v1/stadiums

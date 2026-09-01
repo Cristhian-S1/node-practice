@@ -1,0 +1,24 @@
+###Para obtener los talleres
+GET http://localhost:6969/talleres
+
+###Para crear un taller
+ ### Para crear un taller
+POST http://localhost:6969/crear
+Content-Type: application/json
+
+{
+  "tal_id": 999,
+  "evt_nombre": "Taller erotico",
+  "evt_descripcion": "Descripción del taller",
+  "tal_categoria": "bienestar personal",
+  "tal_fecha_inicio": "2025-01-01",
+  "tal_fecha_termino": "2025-12-31",
+  "grupos": [
+    {
+      "gru_id": 999,
+      "tal_id": 999,
+      "gru_cupos": 20,
+      "gru_grupo": "B"
+    }
+  ]
+}

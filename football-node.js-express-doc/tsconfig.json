@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // El código TypeScript se compila a JavaScript moderno (ES2020)
+    "target": "ES2020",
+
+    // Usamos el sistema de módulos CommonJS (el estándar de Node.js)
+    "module": "commonjs",
+
+    // El compilador busca tipos en node_modules/@types automáticamente
+    "moduleResolution": "node",
+
+    // Permite importar archivos JSON como módulos
+    "resolveJsonModule": true,
+
+    // Emite el código JavaScript compilado
+    "outDir": "./dist",
+
+    // Carpeta raíz del código fuente TypeScript
+    "rootDir": "./src",
+
+    // Modo estricto: activa todas las verificaciones de tipos estrictas
+    // CONSEJO: Siempre usa strict: true en proyectos serios, te ahorra bugs
+    "strict": true,
+
+    // Permite importar módulos CommonJS con import x from 'x' (sin * as)
+    "esModuleInterop": true,
+
+    // Hace que las importaciones sean case-sensitive (importante en Linux)
+    "forceConsistentCasingInFileNames": true,
+
+    // Genera source maps para debug (puedes hacer debug del .ts aunque corra .js)
+    "sourceMap": true,
+
+    // No emitir si hay errores de compilación
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

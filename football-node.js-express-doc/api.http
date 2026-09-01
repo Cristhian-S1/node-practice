@@ -1,0 +1,333 @@
+# ══════════════════════════════════════════════════════════════
+#  football-api.http  →  Consultas REST Client para VS Code
+# ══════════════════════════════════════════════════════════════
+#
+# Extensión requerida: "REST Client" de Huachao Mao (VS Code)
+# Para ejecutar: haz clic en "Send Request" sobre cada bloque.
+#
+# Las variables @baseUrl y @contentType se definen una vez
+# y se reusan en todas las consultas con {{variable}}.
+
+@baseUrl = http://localhost:3000/api/v1
+@contentType = application/json
+
+
+
+# ══════════════════════════════════════════════════════════════
+#  HEALTH CHECK
+# ══════════════════════════════════════════════════════════════
+
+### Verificar que el servidor está corriendo
+GET http://localhost:3000/health
+
+
+
+# ══════════════════════════════════════════════════════════════
+#  ESTADIOS
+# ══════════════════════════════════════════════════════════════
+
+### 1. Obtener todos los estadios
+GET {{baseUrl}}/estadios
+
+###
+
+### 2. Obtener estadios con capacidad mínima de 40.000
+GET {{baseUrl}}/estadios?minCapacidad=40000
+
+###
+
+### 3. Obtener un estadio por ID (incluye clubes que lo usan)
+GET {{baseUrl}}/estadios/1
+
+###
+
+### 4. Obtener un estadio que no existe → debería responder 404
+GET {{baseUrl}}/estadios/999
+
+###
+
+### 5. Crear un nuevo estadio
+POST {{baseUrl}}/estadios
+Content-Type: {{contentType}}
+
+{
+  "nombre": "Estadio Sausalito",
+  "ubicacion": "Viña del Mar, Chile",
+  "capacidad": 20000
+}
+
+###
+
+### 6. Crear estadio con nombre duplicado → debería responder 409
+POST {{baseUrl}}/estadios
+Content-Type: {{contentType}}
+
+{
+  "nombre": "Monumental",
+  "ubicacion": "Santiago, Chile",
+  "capacidad": 47000
+}
+
+###
+
+### 7. Crear estadio con datos inválidos → debería responder 400
+POST {{baseUrl}}/estadios
+Content-Type: {{contentType}}
+
+{
+  "nombre": "X",
+  "ubicacion": "",
+  "capacidad": -500
+}
+
+###
+
+### 8. Eliminar un estadio por ID
+DELETE {{baseUrl}}/estadios/3
+
+###
+
+### 9. Eliminar estadio con clubs asociados → debería responder 409
+DELETE {{baseUrl}}/estadios/1
+
+###
+
+### 10. Eliminar estadio que no existe → debería responder 404
+DELETE {{baseUrl}}/estadios/999
+
+
+
+# ══════════════════════════════════════════════════════════════
+#  CLUBES
+# ══════════════════════════════════════════════════════════════
+
+### 11. Obtener todos los clubes (con info de su estadio)
+GET {{baseUrl}}/clubs
+
+###
+
+### 12. Filtrar clubes por ciudad
+GET {{baseUrl}}/clubs?ciudad=Santiago
+
+###
+
+### 13. Filtrar por ciudad con búsqueda parcial e insensible a mayúsculas
+GET {{baseUrl}}/clubs?ciudad=rancagua
+
+###
+
+### 14. Obtener un club por ID
+GET {{baseUrl}}/clubs/1
+
+###
+
+### 15. Obtener club que no existe → debería responder 404
+GET {{baseUrl}}/clubs/999
+
+###
+
+### 16. Crear un nuevo club con estadio asignado
+POST {{baseUrl}}/clubs
+Content-Type: {{contentType}}
+
+{
+  "nombre": "Huachipato",
+  "direccion": "Av CAP 1000",
+  "ciudad": "Talcahuano",
+  "estadio_id": 1
+}
+
+###
+
+### 17. Crear un club sin estadio (estadio_id es opcional)
+POST {{baseUrl}}/clubs
+Content-Type: {{contentType}}
+
+{
+  "nombre": "Audax Italiano",
+  "direccion": "Av La Florida 3000",
+  "ciudad": "Santiago"
+}
+
+###
+
+### 18. Crear club con nombre duplicado → debería responder 409
+POST {{baseUrl}}/clubs
+Content-Type: {{contentType}}
+
+{
+  "nombre": "ColoColo",
+  "direccion": "Otra direccion 123",
+  "ciudad": "Santiago"
+}
+
+###
+
+### 19. Crear club con estadio_id que no existe → debería responder 409
+POST {{baseUrl}}/clubs
+Content-Type: {{contentType}}
+
+{
+  "nombre": "Everton",
+  "direccion": "Av Valparaiso 100",
+  "ciudad": "Viña del Mar",
+  "estadio_id": 999
+}
+
+###
+
+### 20. Eliminar un club por ID
+DELETE {{baseUrl}}/clubs/5
+
+###
+
+### 21. Eliminar club con partidos asociados → debería responder 409
+DELETE {{baseUrl}}/clubs/1
+
+###
+
+### 22. Eliminar club que no existe → debería responder 404
+DELETE {{baseUrl}}/clubs/999
+
+
+
+# ══════════════════════════════════════════════════════════════
+#  PARTIDOS
+# ══════════════════════════════════════════════════════════════
+
+### 23. Obtener todos los partidos (con nombres de clubes y estadio)
+GET {{baseUrl}}/partidos
+
+###
+
+### 24. Filtrar partidos por rango de fechas
+GET {{baseUrl}}/partidos?desde=2025-01-01&hasta=2025-12-31
+
+###
+
+### 25. Filtrar partidos en un mes específico
+GET {{baseUrl}}/partidos?desde=2025-03-01&hasta=2025-03-31
+
+###
+
+### 26. Partidos de un club específico (local Y visita)
+GET {{baseUrl}}/partidos/club/1
+
+###
+
+### 27. Partidos de otro club
+GET {{baseUrl}}/partidos/club/2
+
+###
+
+### 28. Club sin partidos → debería responder con array vacío
+GET {{baseUrl}}/partidos/club/999
+
+###
+
+### 29. Crear un nuevo partido
+POST {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "fecha": "2025-04-05",
+  "horario": "15:00",
+  "goles_local": 3,
+  "goles_visita": 1,
+  "estadio_id": 1,
+  "club_id_local": 1,
+  "club_id_visita": 3
+}
+
+###
+
+### 30. Crear partido duplicado (misma PK) → debería responder 409
+POST {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "fecha": "2025-03-10",
+  "horario": "18:00",
+  "goles_local": 2,
+  "goles_visita": 1,
+  "estadio_id": 1,
+  "club_id_local": 1,
+  "club_id_visita": 2
+}
+
+###
+
+### 31. Crear partido con local = visita → debería responder 400 (validación Zod)
+POST {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "fecha": "2025-05-01",
+  "horario": "20:00",
+  "goles_local": 0,
+  "goles_visita": 0,
+  "estadio_id": 1,
+  "club_id_local": 1,
+  "club_id_visita": 1
+}
+
+###
+
+### 32. Crear partido con fecha en formato incorrecto → debería responder 400
+POST {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "fecha": "05/01/2025",
+  "horario": "20:00",
+  "goles_local": 0,
+  "goles_visita": 0,
+  "estadio_id": 1,
+  "club_id_local": 1,
+  "club_id_visita": 2
+}
+
+###
+
+### 33. Crear partido con goles negativos → debería responder 400
+POST {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "fecha": "2025-06-01",
+  "horario": "19:00",
+  "goles_local": -1,
+  "goles_visita": 0,
+  "estadio_id": 1,
+  "club_id_local": 1,
+  "club_id_visita": 2
+}
+
+###
+
+### 34. Eliminar un partido (por clave primaria compuesta)
+DELETE {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "club_id_local": 1,
+  "club_id_visita": 2,
+  "fecha": "2025-03-10"
+}
+
+###
+
+### 35. Eliminar partido que no existe → debería responder 404
+DELETE {{baseUrl}}/partidos
+Content-Type: {{contentType}}
+
+{
+  "club_id_local": 1,
+  "club_id_visita": 2,
+  "fecha": "2000-01-01"
+}
+
+###
+
+### 36. Ruta inexistente → debería responder 404
+GET {{baseUrl}}/equipos

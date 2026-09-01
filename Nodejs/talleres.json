@@ -1,0 +1,172 @@
+[
+  {
+    "tal_id": 1,
+    "evt_nombre": "Taller de Yoga y Meditación",
+    "evt_descripcion": "Sesiones de relajación, meditación y bienestar físico para reducir el estrés académico.",
+    "evt_lugar": "Gimnasio Central - Sala de Mindfulness",
+    "tal_categoria": "bienestar personal",
+    "tal_fecha_inicio": "2025-03-01",
+    "tal_fecha_termino": "2025-06-30",
+    "grupos": [
+      {
+        "gru_id": 1,
+        "tal_id": 1,
+        "gru_cupos": 20,
+        "gru_grupo": "A"
+      }
+    ]
+  },
+  {
+    "tal_id": 2,
+    "evt_nombre": "Fútbol Recreativo Interfacultades",
+    "evt_descripcion": "Entrenamientos técnicos y partidos amistosos para todos los niveles de habilidad.",
+    "evt_lugar": "Cancha Norte - Campus Deportivo",
+    "tal_categoria": "talleres deportivos",
+    "tal_fecha_inicio": "2025-03-10",
+    "tal_fecha_termino": "2025-07-15",
+    "grupos": [
+      {
+        "gru_id": 2,
+        "tal_id": 2,
+        "gru_cupos": 25,
+        "gru_grupo": "B"
+      }
+    ]
+  },
+  {
+    "tal_id": 3,
+    "evt_nombre": "Programación en Python para Ciencias",
+    "evt_descripcion": "Introducción a la programación científica con Python y análisis de datos.",
+    "evt_lugar": "Laboratorio de Computación - Edificio Ciencia",
+    "tal_categoria": "talleres recreativos",
+    "tal_fecha_inicio": "2025-04-05",
+    "tal_fecha_termino": "2025-07-20",
+    "grupos": [
+      {
+        "gru_id": 3,
+        "tal_id": 3,
+        "gru_cupos": 30,
+        "gru_grupo": "C"
+      }
+    ]
+  },
+  {
+    "tal_id": 6,
+    "evt_nombre": "Danza Contemporánea Universitaria",
+    "evt_descripcion": "Exploración de movimientos y expresión corporal a través de la danza moderna.",
+    "evt_lugar": "Estudio de Danza - Centro Cultural",
+    "tal_categoria": "bienestar personal",
+    "tal_fecha_inicio": "2025-08-10",
+    "tal_fecha_termino": "2025-11-30",
+    "grupos": [
+      {
+        "gru_id": 6,
+        "tal_id": 6,
+        "gru_cupos": 22,
+        "gru_grupo": "A"
+      }
+    ]
+  },
+  {
+    "tal_id": 7,
+    "evt_nombre": "Inteligencia Artificial Básica",
+    "evt_descripcion": "Fundamentos de IA y machine learning con aplicaciones prácticas simples.",
+    "evt_lugar": "Laboratorio de IA - Edificio Postgrado",
+    "tal_categoria": "talleres recreativos",
+    "tal_fecha_inicio": "2025-09-05",
+    "tal_fecha_termino": "2025-12-15",
+    "grupos": [
+      {
+        "gru_id": 7,
+        "tal_id": 7,
+        "gru_cupos": 25,
+        "gru_grupo": "C"
+      }
+    ]
+  },
+  {
+    "tal_id": 8,
+    "evt_nombre": "Fotografía Digital Creativa",
+    "evt_descripcion": "Técnicas de composición, iluminación y edición fotográfica digital.",
+    "evt_lugar": "Estudio de Fotografía - Departamento de Arte",
+    "tal_categoria": "bienestar personal",
+    "tal_fecha_inicio": "2025-08-20",
+    "tal_fecha_termino": "2025-11-25",
+    "grupos": [
+      {
+        "gru_id": 8,
+        "tal_id": 8,
+        "gru_cupos": 16,
+        "gru_grupo": "D"
+      }
+    ]
+  },
+  {
+    "tal_id": 9,
+    "evt_nombre": "Taller de Cocina Saludable",
+    "evt_descripcion": "Preparación de alimentos nutritivos y balanceados para estudiantes.",
+    "evt_lugar": "Cocina Experimental - Comedor Central",
+    "tal_categoria": "bienestar personal",
+    "tal_fecha_inicio": "2024-03-15",
+    "tal_fecha_termino": "2024-07-10",
+    "grupos": [
+      {
+        "gru_id": 9,
+        "tal_id": 9,
+        "gru_cupos": 12,
+        "gru_grupo": "B"
+      }
+    ]
+  },
+  {
+    "tal_id": 10,
+    "evt_nombre": "Voleibol Competitivo",
+    "evt_descripcion": "Entrenamiento avanzado para competencias interuniversitarias de voleibol.",
+    "evt_lugar": "Gimnasio Principal - Cancha de Voleibol",
+    "tal_categoria": "talleres deportivos",
+    "tal_fecha_inicio": "2024-04-01",
+    "tal_fecha_termino": "2024-07-25",
+    "grupos": [
+      {
+        "gru_id": 10,
+        "tal_id": 10,
+        "gru_cupos": 20,
+        "gru_grupo": "A"
+      }
+    ]
+  },
+  {
+    "tal_id": 11,
+    "evt_nombre": "Escritura Académica Avanzada",
+    "evt_descripcion": "Técnicas para redacción de papers científicos y tesis de grado.",
+    "evt_lugar": "Sala de Estudio - Biblioteca Central",
+    "tal_categoria": "talleres deportivos",
+    "tal_fecha_inicio": "2024-08-15",
+    "tal_fecha_termino": "2024-12-10",
+    "grupos": [
+      {
+        "gru_id": 11,
+        "tal_id": 11,
+        "gru_cupos": 28,
+        "gru_grupo": "B"
+      }
+    ]
+  },
+  {
+    "tal_id": 12,
+    "evt_nombre": "Básquetbol Recreativo",
+    "evt_descripcion": "Práctica de fundamentos y partidos recreativos de básquetbol.",
+    "evt_lugar": "Cancha Sur - Polideportivo",
+    "tal_categoria": "talleres deportivos",
+    "tal_fecha_inicio": "2024-09-01",
+    "tal_fecha_termino": "2024-12-20",
+    "grupos": [
+      {
+        "gru_id": 12,
+        "tal_id": 12,
+        "gru_cupos": 24,
+        "gru_grupo": "C"
+      }
+    ]
+  }
+]

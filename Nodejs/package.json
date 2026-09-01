@@ -1,0 +1,27 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:1": "nodemon method.js",
+    "dev:2": "nodemon index.js",
+    "dev:3": "node --watch express.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "nodemon": "^3.1.10",
+    "standard": "^17.1.2"
+  },
+  "dependencies": {
+    "express": "5.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}

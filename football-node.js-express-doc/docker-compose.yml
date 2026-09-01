@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────────────────
+#  docker-compose.yml  →  Orquestación de servicios
+# ─────────────────────────────────────────────────────────
+#
+# Docker Compose levanta múltiples contenedores como un sistema.
+# Aquí tenemos dos servicios:
+#   - db:  PostgreSQL (la base de datos)
+#   - api: Nuestra app Node.js
+#
+# ¿Por qué necesitamos Compose si ya tenemos Dockerfile?
+# -------------------------------------------------------
+# El Dockerfile define UN solo contenedor (la app).
+# Con Compose podemos levantar la app + la DB + otras dependencias
+# (Redis, un servidor de mails, etc.) con un solo comando:
+#   docker compose up
+#
+# Sin Compose tendrías que levantar cada contenedor manualmente
+# y configurar la red entre ellos tú mismo.
+
+services:
+
+  # ─── PostgreSQL ─────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: football_db
+
+    environment:
+      POSTGRES_USER: cristhian
+      POSTGRES_PASSWORD: postgres123     # Cambia esto en producción
+      POSTGRES_DB: football_db
+
+    ports:
+      # host:contenedor → accesible desde tu máquina en localhost:5432
+      - "5432:5432"
+
+    volumes:
+      # Volumen nombrado: los datos de Postgres persisten aunque
+      # borres y recrees el contenedor. Sin esto perderías los datos.
+      - postgres_data:/var/lib/postgresql/data
+      # Script de inicialización: se ejecuta la PRIMERA vez que
+      # se crea el contenedor (cuando el volumen está vacío)
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    healthcheck:
+      # Docker espera a que Postgres esté listo antes de iniciar la API
+      test: ["CMD-SHELL", "pg_isready -U cristhian -d football_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── API Node.js ────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: football_api
+
+    environment:
+      # IMPORTANTE: dentro de Docker, "localhost" se refiere al propio
+      # contenedor. Para conectar con el servicio "db", usamos su nombre.
+      # Docker Compose crea una red interna donde los servicios se
+      # resuelven por nombre de servicio.
+      DB_HOST: db               # ← nombre del servicio de arriba, NO "localhost"
+      DB_PORT: 5432
+      DB_USER: cristhian
+      DB_PASSWORD: postgres123
+      DB_NAME: football_db
+      PORT: 3000
+      NODE_ENV: production
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      db:
+        # Espera a que el healthcheck de db sea exitoso
+        condition: service_healthy
+
+    # Reinicia automáticamente si el proceso falla
+    restart: unless-stopped
+
+# ─── Volúmenes nombrados ──────────────────────────────────
+volumes:
+  postgres_data:
+    # Docker gestiona dónde guardar este volumen en tu sistema
